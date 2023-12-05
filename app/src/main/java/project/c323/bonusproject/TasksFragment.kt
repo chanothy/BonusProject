@@ -45,12 +45,6 @@ class TasksFragment : Fragment()   {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        val addNoteButton = binding.addNoteButton
-        addNoteButton.setOnClickListener {
-            val action = TasksFragmentDirections.actionTasksFragmentToNoteFragment()
-            this.findNavController().navigate(action)
-        }
-
 
         fun taskClicked (taskId : Long) {
             viewModel.onTaskClicked(taskId)
