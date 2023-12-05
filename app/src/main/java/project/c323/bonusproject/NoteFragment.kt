@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -55,12 +56,21 @@ class NoteFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         // when button clicked, it adds the new task and moves back to the home screen
-        var saveButton = binding.saveButton
-        saveButton.setOnClickListener {
-            viewModel.addTask()
-            val action = NoteFragmentDirections.actionNoteFragmentToTasksFragment()
-            this.findNavController().navigate(action)
-        }
+//        var saveButton = binding.saveButton
+//        saveButton.setOnClickListener {
+//            viewModel.addTask()
+//            val action = NoteFragmentDirections.actionNoteFragmentToTasksFragment()
+//            this.findNavController().navigate(action)
+//        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    viewModel.addTask() // Execute your update logic here
+                    // Remove this line if you don't want the default back navigation
+                    findNavController().navigateUp() // Navigate up
+                }
+            })
 
 
         return view

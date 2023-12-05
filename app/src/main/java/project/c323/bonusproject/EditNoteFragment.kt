@@ -1,9 +1,12 @@
 package project.c323.bonusproject
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -41,6 +44,18 @@ class EditNoteFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        binding.saveButton.setOnClickListener {
+            viewModel.updateTask()
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    viewModel.updateTask() // Execute your update logic here
+                }
+            })
+
+
         // navigates back to taskFragment on data change.
         viewModel.navigateToList.observe(viewLifecycleOwner, Observer { navigate ->
             if (navigate) {
@@ -49,9 +64,14 @@ class EditNoteFragment : Fragment() {
                 viewModel.onNavigatedToList()
             }
         })
+
+
         return view
     }
-    
+
+
+
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

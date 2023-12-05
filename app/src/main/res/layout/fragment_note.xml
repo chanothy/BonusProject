@@ -31,13 +31,6 @@
             android:hint="Description"
             android:text="@={viewModel.newDescription}"/>
 
-        <Button
-            android:id="@+id/save_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            app:cornerRadius="10dp"
-            android:text="SAVE" />
     </LinearLayout>
 
 </layout>

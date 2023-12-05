@@ -1,5 +1,8 @@
 package project.c323.bonusproject
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,6 +11,8 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -79,11 +84,41 @@ class TasksFragment : Fragment()   {
         activity.setSupportActionBar(toolbar)
         setHasOptionsMenu(true)
 
+
         return view
+    }
+
+    // send email process
+    private val sendEmail =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                Log.d("Feedback","sent")
+            } else {
+                Log.d("Feedback","failed")
+            }
+        }
+
+    // send email and set up texts
+    private fun sendFeedback() {
+        val emailIntent = Intent(Intent.ACTION_SEND)
+        emailIntent.type = "message/rfc822"
+
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("timchan@iu.edu"))
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Feedback for IMDBish")
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "Enter feedback here")
+
+        val chooser = Intent.createChooser(emailIntent, "Send email using...")
+        sendEmail.launch(chooser)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_toolbar, menu)
+    }
+
+    private fun aboutPage() {
+        val url = "https://luddy.indiana.edu/"
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -91,14 +126,20 @@ class TasksFragment : Fragment()   {
         val viewModel : TasksViewModel by activityViewModels()
 
         when (item.itemId) {
+            R.id.feedback -> {
+                sendFeedback()
+                return true
+            }
             R.id.add -> {
-                // Handle Item 1 click
                 val action = TasksFragmentDirections.actionTasksFragmentToNoteFragment()
                 this.findNavController().navigate(action)
                 Log.d("add","button clicked")
                 return true
             }
-            // Add more cases for additional menu items
+            R.id.about -> {
+                aboutPage()
+                return true
+            }
             else -> return super.onOptionsItemSelected(item)
         }
     }
