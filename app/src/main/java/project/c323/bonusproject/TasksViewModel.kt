@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
+import kotlin.concurrent.timer
 import kotlin.coroutines.resume
 
 /**
@@ -38,6 +39,8 @@ class TasksViewModel(val dao: TaskDao) : ViewModel() {
      */
     var newTaskName = ""
     var newDescription = ""
+    var newTime = ""
+    var newDate = ""
     val tasks = dao.getAll()
     private val _navigateToTask = MutableLiveData<Long?>()
     val navigateToTask: LiveData<Long?>
@@ -47,6 +50,8 @@ class TasksViewModel(val dao: TaskDao) : ViewModel() {
             val task = Task()
             task.taskName = newTaskName
             task.description = newDescription
+            task.time = newTime
+            task.date = newDate
             dao.insert(task)
         }
     }

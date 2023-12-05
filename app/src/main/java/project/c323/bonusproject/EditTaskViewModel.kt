@@ -15,6 +15,7 @@ class EditTaskViewModel(taskId: Long, val dao: TaskDao) : ViewModel() {
      * @property dao - current dao
      */
     val task = dao.get(taskId)
+    var newDateTime = ""
     private val _navigateToList = MutableLiveData<Boolean>(false)
     val navigateToList: LiveData<Boolean>
         get() = _navigateToList

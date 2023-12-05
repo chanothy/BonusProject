@@ -32,33 +32,32 @@
             android:id="@+id/description_name"
             android:layout_width="245dp"
             android:layout_height="66dp"
-            android:gravity="center"
-            android:textAlignment="textStart"
             android:layout_marginStart="16dp"
             android:layout_marginTop="2dp"
+            android:gravity="center"
             android:text="@{task.description}"
+            android:textAlignment="textStart"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/task_name" />
 
         <ImageButton
             android:id="@+id/delete_button"
-            android:layout_width="66dp"
-            android:layout_height="64dp"
-            android:layout_marginStart="68dp"
+            android:layout_width="91dp"
+            android:layout_height="69dp"
+            android:layout_marginStart="40dp"
             android:clickable="true"
             app:layout_constraintStart_toEndOf="@+id/task_name"
-            app:srcCompat="@android:drawable/ic_delete"
-            tools:layout_editor_absoluteY="2dp" />
+            app:srcCompat="@drawable/baseline_delete_forever_24"
+            tools:layout_editor_absoluteY="-3dp" />
 
         <TextView
             android:id="@+id/dateTime_tv"
-            android:layout_width="59dp"
-            android:layout_height="51dp"
-            android:layout_marginStart="72dp"
-            android:layout_marginTop="2dp"
+            android:layout_width="107dp"
+            android:layout_height="57dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
             android:gravity="center"
-            android:text="TextView"
-            android:textAlignment="textEnd"
+            android:text="@{task.time + ' ' + task.date}"
             app:layout_constraintStart_toEndOf="@+id/description_name"
             app:layout_constraintTop_toBottomOf="@+id/delete_button" />
 

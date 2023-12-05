@@ -1,16 +1,19 @@
 package project.c323.bonusproject
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.DatePicker
 import androidx.activity.OnBackPressedCallback
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import project.c323.bonusproject.databinding.FragmentNoteBinding
-import project.c323.bonusproject.databinding.FragmentTasksBinding
+import java.util.Calendar
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -55,23 +58,53 @@ class NoteFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        // when button clicked, it adds the new task and moves back to the home screen
-//        var saveButton = binding.saveButton
-//        saveButton.setOnClickListener {
-//            viewModel.addTask()
-//            val action = NoteFragmentDirections.actionNoteFragmentToTasksFragment()
-//            this.findNavController().navigate(action)
-//        }
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
+                    if (binding.time.text != "Pick Time" && binding.date.text != "Pick Date") {
+                        viewModel.newDate = binding.date.text.toString()
+                        viewModel.newTime = binding.time.text.toString()
+                    }
                     viewModel.addTask() // Execute your update logic here
-                    // Remove this line if you don't want the default back navigation
                     findNavController().navigateUp() // Navigate up
                 }
             })
 
+        val pickTimeBtn = binding.time
+        pickTimeBtn.setOnClickListener {
+            val c = Calendar.getInstance()
+
+            val hour = c.get(Calendar.HOUR_OF_DAY)
+            val minute = c.get(Calendar.MINUTE)
+
+            val timePickerDialog = TimePickerDialog(
+                requireContext(),
+                { _, selectedHour, selectedMinute ->
+                    pickTimeBtn.text = "$selectedHour:$selectedMinute"
+
+                },
+                hour,
+                minute,
+                true // 24-hour time format
+            )
+
+            timePickerDialog.show()
+        }
+
+        val pickDateBtn = binding.date
+        pickDateBtn.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
+
+            val datePickerDialog = DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDayOfMonth ->
+                pickDateBtn.text = "$selectedMonth/$selectedDayOfMonth/$selectedYear"
+            }, year, month, dayOfMonth)
+
+            datePickerDialog.show()
+        }
 
         return view
 

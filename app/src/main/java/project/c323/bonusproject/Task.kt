@@ -16,8 +16,10 @@ data class Task(
     var taskName: String = "",
     @ColumnInfo(name = "description")
     var description: String = "",
-    @ColumnInfo(name = "timeDate")
-    var timeDate: String = "",
+    @ColumnInfo(name = "time")
+    var time: String = "",
+    @ColumnInfo(name = "date")
+    var date: String = "",
     @ColumnInfo(name = "task_done")
     var taskDone: Boolean = false
 )
