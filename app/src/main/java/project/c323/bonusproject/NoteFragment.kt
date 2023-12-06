@@ -81,7 +81,13 @@ class NoteFragment : Fragment() {
             val timePickerDialog = TimePickerDialog(
                 requireContext(),
                 { _, selectedHour, selectedMinute ->
-                    pickTimeBtn.text = "$selectedHour:$selectedMinute"
+                    if (selectedMinute.toString().length == 1) {
+                        pickTimeBtn.text = "$selectedHour:0$selectedMinute"
+
+                    }
+                    else {
+                        pickTimeBtn.text = "$selectedHour:$selectedMinute"
+                    }
 
                 },
                 hour,
@@ -100,7 +106,7 @@ class NoteFragment : Fragment() {
             val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
 
             val datePickerDialog = DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDayOfMonth ->
-                pickDateBtn.text = "$selectedMonth/$selectedDayOfMonth/$selectedYear"
+                pickDateBtn.text = "${selectedMonth+1}/$selectedDayOfMonth/$selectedYear"
             }, year, month, dayOfMonth)
 
             datePickerDialog.show()
