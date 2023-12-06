@@ -1,36 +1,38 @@
-# Project Name
+# Bonus Project
 
-Description of the project ...
+Reminder app with time and date.
 
 ## Functionality 
 
 The following **required** functionality is completed:
 
-* [ ] User sees ...
-* [ ] User can ...
-* [ ] ...
-* [ ] ...
+* [ ] List of reminders.
+* [ ] User can add reminders with title, desc, time, and date.
+* [ ] Reminders can be deleted.
+* [ ] Reminders are stored in a database.
+* [ ] Dialog for deletion actions.
+* [ ] Has feedback and webpage intents.
 
 The following **extensions** are implemented:
 
-* ...
+* Room Database
 * ...
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='walkthrough.gif' title='Video Walkthrough' width='50%' alt='Video Walkthrough' />
+<img src='https://github.com/chanothy/BonusProject/blob/master/appDemo.gif' title='Video Walkthrough' width='50%' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+I had some issues figuring out the format for the usage of the time and date pickers. Also, the constraint layout was giving me issues.
 
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright [2023] [Timothy Chan]
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
