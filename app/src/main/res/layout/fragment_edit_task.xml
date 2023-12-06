@@ -39,18 +39,20 @@
             <Button
                 android:id="@+id/time"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_height="100dp"
                 android:layout_weight="1"
                 app:cornerRadius="10dp"
-                android:text="@={viewModel.task.time}" />
+                android:text="Pick Time" />
 
             <Button
                 android:id="@+id/date"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_height="100dp"
                 android:layout_weight="1"
                 app:cornerRadius="10dp"
-                android:text="@={viewModel.task.date}" />
+                android:text="Pick Date" />
         </LinearLayout>
 
 

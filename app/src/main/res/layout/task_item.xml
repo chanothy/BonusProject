@@ -14,27 +14,27 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="140dp">
+        android:layout_height="100dp">
 
         <TextView
             android:id="@+id/task_name"
             android:layout_width="245dp"
-            android:layout_height="66dp"
-            android:gravity="center"
-            android:textAlignment="textStart"
+            android:layout_height="50dp"
             android:layout_marginStart="16dp"
+            android:gravity="center"
             android:text="@{task.taskName}"
+            android:textAlignment="textStart"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/description_name"
-            android:layout_width="245dp"
-            android:layout_height="66dp"
-            android:layout_marginStart="16dp"
+            android:layout_width="236dp"
+            android:layout_height="47dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="2dp"
-            android:gravity="center"
+            android:gravity="top"
             android:text="@{task.description}"
             android:textAlignment="textStart"
             app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +43,7 @@
         <ImageButton
             android:id="@+id/delete_button"
             android:layout_width="91dp"
-            android:layout_height="69dp"
+            android:layout_height="50dp"
             android:layout_marginStart="40dp"
             android:clickable="true"
             app:layout_constraintStart_toEndOf="@+id/task_name"
@@ -53,11 +53,11 @@
         <TextView
             android:id="@+id/dateTime_tv"
             android:layout_width="107dp"
-            android:layout_height="57dp"
+            android:layout_height="40dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:gravity="center"
-            android:text="@{task.time + ' ' + task.date}"
+            android:text="@{task.time + `  ` + task.date}"
             app:layout_constraintStart_toEndOf="@+id/description_name"
             app:layout_constraintTop_toBottomOf="@+id/delete_button" />
 

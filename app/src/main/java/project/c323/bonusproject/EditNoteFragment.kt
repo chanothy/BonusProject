@@ -58,6 +58,7 @@ class EditNoteFragment : Fragment() {
             })
 
 
+
         // navigates back to taskFragment on data change.
         viewModel.navigateToList.observe(viewLifecycleOwner, Observer { navigate ->
             if (navigate) {
@@ -100,6 +101,22 @@ class EditNoteFragment : Fragment() {
             }, year, month, dayOfMonth)
 
             datePickerDialog.show()
+        }
+
+        viewModel.task.observe(viewLifecycleOwner) { task ->
+            pickDateBtn.text = if (task.date.isNullOrEmpty()) {
+                "Pick Date"
+            } else {
+                task.date
+            }
+        }
+
+        viewModel.task.observe(viewLifecycleOwner) { task ->
+            pickTimeBtn.text = if (task.time.isNullOrEmpty()) {
+                "Pick Time"
+            } else {
+                task.time
+            }
         }
 
         return view
