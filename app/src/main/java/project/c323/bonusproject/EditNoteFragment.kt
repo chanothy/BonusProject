@@ -5,14 +5,20 @@ import android.app.TimePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.appbar.MaterialToolbar
 import project.c323.bonusproject.databinding.FragmentEditTaskBinding
 import java.util.Calendar
 
@@ -126,7 +132,44 @@ class EditNoteFragment : Fragment() {
             }
         }
 
+        val toolbar: MaterialToolbar = binding.toolbar
+        val activity = requireActivity() as AppCompatActivity
+        activity.setSupportActionBar(toolbar)
+        setHasOptionsMenu(true)
+
+
         return view
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.note_toolbar, menu)
+    }
+
+    // if yes is pressed then deletes and returns to main page
+    private fun yesPressed(taskId : Long) {
+        Log.d("TAG", "in yesPressed(): taskId = $taskId")
+        if (taskId.toString() != "") {
+            binding.viewModel?.deleteNote(taskId)
+        }
+        val action = EditNoteFragmentDirections.actionEditTaskFragmentToTasksFragment()
+        findNavController().navigate(action)
+    }
+
+
+    // calls the dialog fragment
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val taskId = EditNoteFragmentArgs.fromBundle(requireArguments()).taskId
+
+
+        when (item.itemId) {
+            R.id.toolbar_delete -> {
+                // Handle Item 1 click
+                ConfirmDeleteDialogFragment(taskId,::yesPressed).show(childFragmentManager, ConfirmDeleteDialogFragment.TAG)
+                return true
+            }
+            // Add more cases for additional menu items
+            else -> return super.onOptionsItemSelected(item)
+        }
     }
 
 

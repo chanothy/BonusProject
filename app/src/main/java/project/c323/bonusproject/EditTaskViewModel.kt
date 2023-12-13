@@ -29,6 +29,13 @@ class EditTaskViewModel(taskId: Long, val dao: TaskDao) : ViewModel() {
         }
     }
 
+    fun deleteNote(noteId: Long)
+    {
+        viewModelScope.launch {
+            val note = dao.get(noteId).await()
+            dao.delete(note)
+        }
+    }
 
     fun onNavigatedToList() {
         _navigateToList.value = false

@@ -79,6 +79,13 @@ class TasksFragment : Fragment()   {
             }
         })
 
+        var floatButton = binding.floatingActionButton
+        floatButton.setOnClickListener {
+            val action = TasksFragmentDirections.actionTasksFragmentToNoteFragment()
+            this.findNavController().navigate(action)
+            Log.d("float","button clicked")
+        }
+
         val toolbar: MaterialToolbar = view.findViewById(R.id.materialToolbar)
         val activity = requireActivity() as AppCompatActivity
         activity.setSupportActionBar(toolbar)
